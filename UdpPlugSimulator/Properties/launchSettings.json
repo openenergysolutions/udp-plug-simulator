@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UdpPlugSimulator": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

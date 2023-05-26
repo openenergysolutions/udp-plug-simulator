@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2022 Open Energy Solutions Inc
+#
+# SPDX-License-Identifier: Apache-2.0
+version: '3.4'
+
+services:
+  udpplugsimulator:
+    image: oesinc/plug-simulator
+    build:
+      context: .
+      dockerfile: UdpPlugSimulator/Dockerfile
+    container_name: 'oes-plug'
+    ports:
+      - "8556:8556/udp"
+    volumes:
+      - ./UdpPlugSimulator/config:/config
