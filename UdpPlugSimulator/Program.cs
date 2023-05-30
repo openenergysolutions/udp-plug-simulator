@@ -36,7 +36,12 @@ namespace UdpPlugSimulator
 
             if (info == null)
             {
-                config = "./config/config.json";
+                config = "/config/config.json";
+
+                if (!File.Exists(config))
+                {
+                    config = "./config/config.json";
+                }
             }
             else
             {

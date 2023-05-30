@@ -25,10 +25,13 @@ namespace UdpPlugSimulator
         private string _name = "OES-Plug";
         private PlugStatus _status = PlugStatus.On;
 
+        private int _broadcastIntervalMs;
+
         public string IpAddress { get; set; } = "127.0.0.1";
         public string HostIpAddress { get; set; } = "127.0.0.1";
         public string MacAddress { get; set; } = Helper.GetRandomMacAddress();
         public int Port { get; set; } = 8556;
+        
 
         private readonly ISettings _settings;
         private readonly ILogger _logger;
@@ -75,6 +78,7 @@ namespace UdpPlugSimulator
             Voltage = _settings.Voltage;
             Current = _settings.Current;
             Power = _settings.Power;
+            _broadcastIntervalMs = settings.BroadcastIntervalMs;
         }
 
         public void Start()
@@ -140,7 +144,7 @@ namespace UdpPlugSimulator
                             _logger.LogInformation("Broadcast: {0}", Encoding.UTF8.GetString(data));
                             _udpClient.Send(data, data.Length, "255.255.255.255", BROAD_CAST_PORT);
 
-                            Thread.Sleep(10000);
+                            Thread.Sleep(_broadcastIntervalMs);
                         }
                     }
                     catch { }
@@ -169,9 +173,9 @@ namespace UdpPlugSimulator
                 PlugStatus = Status,
                 MacAddress = MacAddress,
                 IpAddress = HostIpAddress,
-                W = Math.Round(Power + _random.NextDouble(), 2),
-                V = Math.Round(Voltage + _random.NextDouble(), 2),
-                I = Math.Round(Current + _random.NextDouble(), 2)
+                W = Status == PlugStatus.On ? Math.Round(Power + _random.NextDouble(), 2) : 0.0,
+                V = Status == PlugStatus.On ? Math.Round(Voltage + _random.NextDouble(), 2) : 0.0,
+                I = Status == PlugStatus.On ? Math.Round(Current + _random.NextDouble(), 2) : 0.0
             };
 
             var json = JsonConvert.SerializeObject(data);

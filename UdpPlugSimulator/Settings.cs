@@ -17,7 +17,7 @@ namespace UdpPlugSimulator
         int Voltage { get; set; }
         int Current { get; set; }
         int Power { get; set; }
-
+        int BroadcastIntervalMs { get; set; }
         void Update();
     }
 
@@ -32,7 +32,7 @@ namespace UdpPlugSimulator
         public int Voltage { get; set; } = 120;
         public int Current { get; set; } = 5;
         public int Power { get; set; } = 25;
-
+        public int BroadcastIntervalMs { get; set; } = 1000;
         public void Update()
         {
             try
