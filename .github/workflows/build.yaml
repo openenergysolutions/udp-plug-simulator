@@ -31,7 +31,7 @@ jobs:
         file: ./UdpPlugSimulator/Dockerfile
         no-cache: true
         push: true
-        tags: oesinc/plug-simulator:latest,oesinc/plug-simulator:${{ steps.git-sha.outputs.sha }}
+        tags: oesinc/udp-plug-simulator:latest,oesinc/udp-plug-simulator:${{ steps.git-sha.outputs.sha }}
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
